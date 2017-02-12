@@ -12,8 +12,14 @@ Respective branches will have individual commits for each member.
 
 Contributor usernames may not match the actual person who created/wrote the files.
 
+
 xellotath - Petros Stavroulopoulos
+
 ramanchandi01 - Raman Chandi
+
 Omgupta1 - Om Gupta
+
 iesanMyName - Iesan Karki
+
 "???" - Khoi Ky
+

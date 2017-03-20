@@ -1,0 +1,8 @@
+﻿  randomization.c
+c:\users\petro\documents\visual studio 2015\projects\project7\project7\randomization.c(49): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\petro\documents\visual studio 2015\projects\project7\project7\randomization.c(158): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\petro\documents\visual studio 2015\projects\project7\project7\randomization.c(265): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  commands.c
+  Generating Code...
+  Project7.vcxproj -> c:\users\petro\documents\visual studio 2015\Projects\Project7\Debug\Project7.exe
+  Project7.vcxproj -> c:\users\petro\documents\visual studio 2015\Projects\Project7\Debug\Project7.pdb (Partial PDB)

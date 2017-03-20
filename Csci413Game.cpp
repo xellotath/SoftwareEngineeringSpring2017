@@ -64,8 +64,9 @@ int main(void)
 	int p = rand() % 25;//picking random variable set from room center array	
 	int c = rand() % 25;//picking another random variable to be used for chest location
 	int k = rand() % 25;//picking random variable for key
-	int t = rand() % 25;//picking random variable for door
+	int t = rand() % 25;//picking random variable for teleporter
 	int e = rand() % 25;//picking random variable for enemy
+	int e2 = rand() % 25;//picking random variable for enemy 2
 	int pv = rand() % 20;//picking random variable for vertical pathways
 	int ph = rand() % 20;//picing random variable for horizontal pathways
 
@@ -91,34 +92,62 @@ int main(void)
 		}
 	}
 
-	if(p == c || p == k || p == t || p == e)
-	{
+	/*do{
 		p = rand() % 25;
-	}
+		e = rand() % 25;
+		e2 = rand() % 25;
+		
+		while(p == c || p == k || p == t || p == e || p == e2)
+		{
+			p = rand() % 25;
+		}
 
-	if(c == p || c == k || c == t || c == e)
-	{
-		c = rand() % 25;
-	}
+		while(e == c || e == k || e == t || e == p || e == e2)
+		{
+			e = rand() % 25;
+		}
 
-	if(k == c || k == p || k == t || k == e)
-	{
-		k = rand() % 25;
-	}
+		while(e2 == c || e2 == k || e2 == t || e2 == p || e2 == e)
+		{
+			e2 = rand() % 25;
+		}
+			
+		while(c == p || c == k || c == t || c == e || c == e2)
+		{
+			c = rand() % 25;
+		}
 
-	if(t == p || t == c || t == k || t == e)
-	{
-		t = rand() % 25;
-	}
+		while(k == c || k == p || k == t || k == e || k == e2)
+		{
+			k = rand() % 25;
+		}
+
+	}while(abs(room_center[0][p] - room_center[0][e]) <= 15 || abs(room_center[1][p] - room_center[1][e]) <= 18
+		|| abs(room_center[0][p] - room_center[0][e2]) <= 15 || abs(room_center[1][p] - room_center[1][e2]) <= 12);
+		//this do while loop is verifying that the enemies are at least 4 spaces away from the player
+
+	do{
+			t = rand() % 25;
+		
+			while(t == p || t == c || t == k || t == e || t == e2)
+			{
+				t = rand() % 25;
+			}
+	}while(abs(room_center[0][t] - room_center[0][e]) > 10 || abs(room_center[1][t] - room_center[1][e]) > 12
+			||abs(room_center[0][t] - room_center[0][e2]) > 10 || abs(room_center[1][t] - room_center[1][e2]) > 12);
+			//This do while loop is verifying that the teleporter is near the enemies
+
+	*/
+
 	
 	map[room_center[0][p]][room_center[1][p]]='@'; //placing character
 	map[room_center[0][c] - 1][room_center[1][c]] = 'C'; //placing chest
 	map[room_center[0][k] + 1][room_center[1][k]] = 'K'; //placing key
 	map[room_center[0][t]][room_center[1][t] + 1] = 'T'; //placing teleporter
 	map[room_center[0][e]][room_center[1][e] - 1] = 'E'; //placing enemy
-	
+	map[room_center[0][e2]][room_center[1][e2] - 1] = 'E'; //placing second enemy
 
-	for(pv_count = 0; pv_count <= 15; pv_count++) //loop creating vertical pathways
+	for(pv_count = 0; pv_count <= 20; pv_count++) //loop creating vertical pathways
 	{
 		if(map[path_v[0][pv]][path_v[1][pv]] == '|') //if a path is already there generate a new random variable
 		{
@@ -131,7 +160,7 @@ int main(void)
 		map[path_v[0][pv] + 1][path_v[1][pv] + 1] = '|';
 	}
 
-	for(ph_count = 0; ph_count <= 15; ph_count++) //loop creating horizontal pathways
+	for(ph_count = 0; ph_count <= 20; ph_count++) //loop creating horizontal pathways
 	{
 		if(map[path_h[0][ph]][path_h[1][ph]] == '=')//if a path is already there generate a new random variable
 		{
@@ -146,6 +175,51 @@ int main(void)
 		printf("%s",&map[i][j]);		
 		printf("\n");
 	}
+
+	/*for(int test = 0; test < 5; test++){
+	getchar();
+	int e_temp;
+	int move = 0;
+	if(room_center[0][p] - room_center[0][e] < 0 && move == 0)
+	{
+		map[room_center[0][e]][room_center[1][e] - 1] = ' ';
+		e_temp = e;
+		e = e - 5;
+		map[room_center[0][e]][room_center[1][e_temp] - 1] = 'E'; //placing enemy
+		move++;
+	}
+	if(room_center[0][p] - room_center[0][e] > 0 && move == 0)
+	{
+		map[room_center[0][e]][room_center[1][e] - 1] = ' ';
+		e_temp = e;
+		e = e + 5;
+		map[room_center[0][e]][room_center[1][e_temp] - 1] = 'E'; //placing enemy
+		move++;
+	}
+	if(room_center[1][p] - room_center[1][e] < 0 && move == 0)
+	{
+		map[room_center[0][e]][room_center[1][e] - 1] = ' ';
+		e_temp = e;
+		e--;
+		map[room_center[0][e_temp]][room_center[1][e] - 1] = 'E'; //placing enemy
+		move++;
+	}
+	if(room_center[1][p] - room_center[1][e] > 0 && move == 0)
+	{
+		map[room_center[0][e]][room_center[1][e] - 1] = ' ';
+		e_temp = e;
+		e++;
+		map[room_center[0][e_temp]][room_center[1][e] - 1] = 'E'; //placing enemy
+		move++;
+	}
+
+	for(i = 0; i < 25; i++)
+	{
+		printf("%s",&map[i][j]);		
+		printf("\n");
+	}}
+
+	*/
 
 	getchar();
 	return 0;

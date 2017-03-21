@@ -84,10 +84,16 @@ int main(void)
 			map[current_try][chest_location[0]][chest_location[1]] = 'C';
 			map[current_try][player_spawn_location[0]][player_spawn_location[1]] = '@';
 			map[current_try][player_location[0]][player_location[1]] = ' ';
+			player_location[0] = player_spawn_location[0];
+			player_location[1] = player_spawn_location[1];
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = ' ';
 			map[current_try][enemy2_spawn_pair[0]][enemy2_spawn_pair[1]] = 'E';
+			enemy2_location[0] = enemy2_spawn_pair[0];
+			enemy2_location[1] = enemy2_spawn_pair[1];
 			map[current_try][enemy_location[0]][enemy_location[1]] = ' ';
 			map[current_try][enemy_spawn_pair[0]][enemy_spawn_pair[1]] = 'E';
+			enemy_location[0] = enemy_spawn_pair[0];
+			enemy_location[1] = enemy_spawn_pair[1];
 			now = time(NULL);
 			struct tm *t = localtime(&now);
 			strftime(date_time, sizeof(date_time), "%H-%M-%S - Game event - Player death - "

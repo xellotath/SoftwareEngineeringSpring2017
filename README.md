@@ -21,5 +21,5 @@ Omgupta1 - Om Gupta
 
 iesanMyName - Iesan Karki
 
-"???" - Khoi Ky
+Khoi-Ky - Khoi Ky
 

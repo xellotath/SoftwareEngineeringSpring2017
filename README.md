@@ -43,3 +43,5 @@
 [![McNeese State University](https://www.kbys.fm/sites/wp-content/uploads/2016/12/mcneese.png)](mcneese.edu)
 
 
+Sean Redd - Traiteur
+

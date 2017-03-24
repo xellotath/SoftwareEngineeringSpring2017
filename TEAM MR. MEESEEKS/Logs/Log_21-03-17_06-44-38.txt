@@ -1,0 +1,10 @@
+06-44-38 - Randomization algorithm couldn't produce proper maze - [int randomize()] - Retrying one last time and then switching to [int randomize_2()]
+06-44-46 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-49 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-52 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-55 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-56 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-58 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-44-59 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-45-00 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.
+06-45-05 - Enemy "horizontal" pathfinding algorithm failed - [int enemy2_algo()]. It will not be used again for this run.

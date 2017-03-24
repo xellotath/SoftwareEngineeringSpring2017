@@ -37,7 +37,7 @@
 [**Traiteur**](https://github.com/Traiteur) - Sean Redd
 
 ## Branches
-There are 7 branches on this project. The master branch loosely contains all the files submitted. Respective branches will have individual commits for each member, but they do not indicate all commits on project by their respective member/owner.
+There are 7 branches on this project. The master branch loosely contains all the files submitted. Respective branches will have individual commits for each member, but they may not indicate all commits on the project as a whole by their respective member/owner.
 
 * [**Repository network graph**](https://github.com/xellotath/SoftwareEngineeringSpring2017/network)
 

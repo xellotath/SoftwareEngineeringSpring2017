@@ -8,7 +8,7 @@
 
 ---
 
-**Class**: CSCI 413 - Software Engineering II
+**Course**: CSCI 413 - Software Engineering II
 
 **School**: McNeese State University 
 

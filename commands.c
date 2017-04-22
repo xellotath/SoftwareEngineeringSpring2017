@@ -47,7 +47,12 @@ void input(int current_try) {
 						{
 							if (atoi(tokens[2])) //will not enter loop if third word is not an interger
 							{
-
+								steps = steps + atoi(tokens[2]);
+							}
+							else
+							{
+								printf("Please try command again with an integer after 'forward'");
+								getchar();
 							}
 						}
 					}
@@ -57,17 +62,22 @@ void input(int current_try) {
 						{
 							if (atoi(tokens[2])) //will not enter loop if third word is not an integer
 							{
-
+								steps = steps - atoi(tokens[2]);
+							}
+							else
+							{
+								printf("Please try command again with an integer after 'back'");
+								getchar();
 							}
 						}
 					}
 					else if (strcmp(tokens[1], "faster") == 0)
 					{
-
+						ms = ms + 300;
 					}
 					else if (strcmp(tokens[1], "slower") == 0)
 					{
-
+						ms = ms - 300;
 					}
 				}
 				else if (strcmp(tokens[1], "up") == 0) {
@@ -397,15 +407,16 @@ void input(int current_try) {
 				{
 					if (strcmp(tokens[1], "pause") == 0)
 					{
-
+						pause = 1;
+						input(0);
 					}
 					else if (strcmp(tokens[1], "resume") == 0)
 					{
-
+						pause = 0;
 					}
 					else if (strcmp(tokens[1], "stop") == 0)
 					{
-
+						stop = 1;
 					}
 				}
 				else {

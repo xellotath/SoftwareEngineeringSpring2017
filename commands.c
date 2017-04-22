@@ -11,11 +11,12 @@ int game_ended = 0;//main endless loop breaks with this
 char chest_code_string[3];//holds the chest code
 int failprint = 0;//ensures one print
 int replay_mode = 0; //becomes 1 if the ser is watcing a replay, 0 when he returns to the main menu
-char location[250][9]; //array to store locations of all elements in play
+char replay_map[250][25][30]; //array to store locations of all elements in play
 int sc = 0; //counter variable for successful commands
 int algo1fail = 0;
 int algo2fail = 0;
 int first_export = 1;
+
 
 void input(int current_try) {
 
@@ -787,25 +788,12 @@ int enemy2_algo3(int current_try) {
 
 void _export()
 {
-
-	if (first_export == 1) {
-		location[sc][0] = player_location[0] + " " + player_location[1];
-		location[sc][1] = enemy_location[0] + " " + enemy_location[1];
-		location[sc][2] = enemy2_location[0] + " " + enemy2_location[1];
-		location[sc][3] = mark_location[0] + " " + mark_location[1];
-		location[sc][4] = door_location[0] + " " + door_location[1];
-		location[sc][5] = chest_location[0] + " " + chest_location[1];
-		location[sc][6] = password_locations[0][0] + " " + password_locations[1][0] + password_locations[2][0];
-		location[sc][7] = password_locations[0][1] + " " + password_locations[1][1] + password_locations[2][1];
-		location[sc][8] = password_locations[0][2] + " " + password_locations[1][2] + password_locations[2][2];
-		first_export = 0;
+	for (int i = 0; i <= 25; i++)
+	{
+		for (int j = 0; j <= 30; j++)
+		{
+			replay_map[sc][i][j] = map[i][j];
+		}
 	}
-	else {
-		location[sc][0] = player_location[0] + " " + player_location[1];
-		location[sc][1] = enemy_location[0] + " " + enemy_location[1];
-		location[sc][2] = enemy2_location[0] + " " + enemy2_location[1];
-	}
-
-
 	sc++;
 }

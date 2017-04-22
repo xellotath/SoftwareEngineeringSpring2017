@@ -10,3 +10,9 @@
 extern FILE *fp;
 extern time_t now;
 extern char date_time[250];
+extern int delay_ms;
+extern int pause;
+extern int stop;
+extern unsigned int ms;
+extern int steps;
+

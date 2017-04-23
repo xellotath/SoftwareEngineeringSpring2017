@@ -2,15 +2,30 @@
 #include <string.h>
 
 void encryptionMain() {
+	char readData; // Data read from game
+	char writeData; // encrypted output
 
+	encryptionChooser(readData, writeData);
 }
 
-void encryptionChooser() {
+void encryptionChooser(char *input, char *output) {
+	// If 0-49 -> method 1. If 50-99 -> method 2
+	int choice = rand() % (99 + 1 - 0);
 
+	if (choice < 50) {
+		encryptionMethod1(input, output);
+		encryptionMethod3('a');
+	}
+	else {
+		encryptionMethod2(input, output);
+		encryptionMethod3('b');
+	}
 }
 
 
-// ENCRYPTION
+/////////////////
+// ENCRYPTION //
+///////////////
 
 void encryptionMethod1(char *input, char *output) {
 	// XOR encryption
@@ -26,12 +41,15 @@ void encryptionMethod2(char *input, char *output) {
 	// AES encryption
 }
 
-void encryptionMethod3(char *input, char *output) {
+void encryptionMethod3(char *indicator) {
 	// ??? encryption
 	// For use only with the encryption method identifier
 }
 
-// DECRYPTION
+
+/////////////////
+// DECRYPTION //
+///////////////
 
 void decryptionMethod1(char *input, char *output) {
 	// XOR decryption
@@ -42,3 +60,7 @@ void decryptionMethod1(char *input, char *output) {
 void decryptionMethod2(char *input, char *output) {
 	// AES decryption
 } 
+
+void decryptionMethod3(char *input, char *output) {
+	// ??? decryption
+}

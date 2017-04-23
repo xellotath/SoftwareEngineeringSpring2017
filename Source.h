@@ -15,4 +15,5 @@ extern int pause;
 extern int stop;
 extern unsigned int ms;
 extern int steps;
-
+extern int forward;
+extern int back;

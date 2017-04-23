@@ -17,6 +17,8 @@ char date_time_replay[250];//string to hold the date filename for replays
 int pause = 0;
 int stop = 0;
 int steps = 0;
+int forward = 0;
+int back = 0;
 unsigned int ms = 1500;
 
 int main(void)
@@ -41,9 +43,9 @@ int main(void)
 	get_center(room_center);//fill that array
 
 
-	sc = 0;
 
-	if (replay_mode == 1) {
+
+
 
 
 
@@ -131,10 +133,9 @@ int main(void)
 				fclose(fp);
 
 				replay_mode = 1;
+				while (steps != sc) {
 
-				while ((replay_map[steps][0][0] != NULL) || j == sc) {
-
-					for (i = 0; i < 35; i++) {
+					/*for (i = 0; i < 35; i++) {
 						_delay(ms);
 						if (_kbhit()) {
 							input(0);
@@ -142,7 +143,7 @@ int main(void)
 						if (i == 34) {
 							stop = 1;
 						}
-					}
+					}*/
 
 					if (stop == 1) {
 						break;
@@ -150,21 +151,28 @@ int main(void)
 
 
 					if (pause == 0) {
-
-
-						printf("%s\n", replay_map[sc][i]);
-
+						system("cls");
+						for (i = 0;i < 25;i++) {
+							printf("%s\n", replay_map[steps][i]);
+						}
 						_delay(ms);
 
 						if (_kbhit()) {
 							input(0);
 						}
+						steps++;
 					}
 					else {
 						input(0);
+						if (back == 1 || forward == 1) {
+							system("cls");
+							for (i = 0;i < 25;i++) {
+								printf("%s\n", replay_map[steps][i]);
+							}
+							forward = 0;
+							back = 0;
+						}
 					}
-
-					steps++;
 				}
 
 
@@ -172,7 +180,7 @@ int main(void)
 			}
 
 		}
-	}
+
 
 }
 

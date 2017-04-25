@@ -580,3 +580,5 @@ source/Log_21-04-17_16-15-19\.txt
 *.filters
 
 *.sln
+
+source/db/\.Rhistory

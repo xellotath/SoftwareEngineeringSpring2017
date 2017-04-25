@@ -82,7 +82,7 @@ void input(int current_try) {
 						ms = ms + 300;
 					}
 				}
-				else if (strcmp(tokens[1], "up") == 0) {
+				else if ((strcmp(tokens[1], "up") == 0) || (strcmp(tokens[1], "north") == 0)) {
 					if (tokens[2] != NULL) {//checks if there is a third word
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -120,7 +120,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "down") == 0) {
+				else if ((strcmp(tokens[1], "down") == 0) || (strcmp(tokens[1], "south") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -158,7 +158,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "left") == 0) {
+				else if ((strcmp(tokens[1], "left") == 0) || (strcmp(tokens[1], "west") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -196,7 +196,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "right") == 0) {
+				else if ((strcmp(tokens[1], "right") == 0) || (strcmp(tokens[1], "east") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))

@@ -83,7 +83,7 @@ void input(int current_try) {
 						ms = ms + 300;
 					}
 				}
-				else if (strcmp(tokens[1], "up") == 0) {
+				else if ((strcmp(tokens[1], "up") == 0) || (strcmp(tokens[1], "north") == 0)) {
 					if (tokens[2] != NULL) {//checks if there is a third word
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -121,7 +121,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "down") == 0) {
+				else if ((strcmp(tokens[1], "down") == 0) || (strcmp(tokens[1], "south") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -159,7 +159,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "left") == 0) {
+				else if ((strcmp(tokens[1], "left") == 0) || (strcmp(tokens[1], "west") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -197,7 +197,7 @@ void input(int current_try) {
 						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "right") == 0) {
+				else if ((strcmp(tokens[1], "right") == 0) || (strcmp(tokens[1], "east") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -483,14 +483,14 @@ void input(int current_try) {
 			getchar();
 		}
 		else if (strcmp(tokens[0], "locations") == 0) {
-			printf("The locations of the passwords are:\n %d %d \n %d %d \n %d %d ",password_locations[0][0], password_locations[1][0], password_locations[0][1], password_locations[1][1], password_locations[0][2], password_locations[1][2]);
+			printf("The locations of the passwords are:\n %d %d \n %d %d \n %d %d ", password_locations[0][0], password_locations[1][0], password_locations[0][1], password_locations[1][1], password_locations[0][2], password_locations[1][2]);
 			getchar();
 		}
 		else if (strcmp(tokens[0], "picklock") == 0) {
 			has_key = 1;
 			if ((player_location[0]) == door_location[0] && (player_location[1] + 1) == door_location[1] && locked_door == 1 && has_key == 1) {
 				locked_door = 0;
-				printf("Keys are for casuals! Door has been unlocked!s");
+				printf("Keys are for casuals! Door has been unlocked!");
 				getchar();
 			}
 		}

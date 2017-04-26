@@ -56,10 +56,11 @@ function(input, output, session) {
 		# If they match, the attempt is successful.
 		
 		if (toString(verificationNode) == toString(comparisonNode)) {
-			shinyjs::alert("Success!")
+			showNotification("Success!", duration = 5, closeButton = TRUE, type = "message")
 			delete(verificationNode) # Redundant node
 		} else {
-			shinyjs::alert("Username and password are incorrect.")
+			showNotification("Username and password are incorrect.", 
+											 duration = 5, closeButton = TRUE, type = "error")
 			delete(verificationNode) # Redundant node
 		}
 		

@@ -4,7 +4,7 @@ library(shinyjs)
 library(shinythemes)
 
 # Connect to the Neo4j DB.
-graph = startGraph("http://localhost:7474/db/data/",
+graph = startGraph("http://107.170.75.7:7474/db/data/",
                    username = "neo4j",
                    password = "meeseek")
 

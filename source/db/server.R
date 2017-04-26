@@ -2,7 +2,7 @@ library(RNeo4j)
 library(shiny)
 library(shinyjs)
 
-graph = startGraph("http://localhost:7474/db/data/",
+graph = startGraph("http://107.170.75.7:7474/db/data/",
 									 username = "neo4j",
 									 password = "meeseek")
 useShinyjs()

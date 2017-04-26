@@ -12,18 +12,18 @@ function(input, output, session) {
 	
 	observe({
 		if (is.null(input$new_user) || input$new_user == "") {
-			shinyjs::disable("registerButton")
+			shinyjs::disable("registerButton") # Disable button to disallow null data / errors
 		} else {
 			shinyjs::enable("registerButton")
 		}
 	})
 	
-	
+	# Create node (the user's account) when the button is clicked.
 	observeEvent(input$registerButton, {
 		disable(input$new_user)
 		newNode = createNode(graph,
 												 "User",
-												 name = input$new_user,
+												 username = input$new_user,
 												 password = input$new_pass)
 	})
 	
@@ -40,10 +40,27 @@ function(input, output, session) {
 	
 	
 	observeEvent(input$loginButton, {
-		if (input$my_user == userCheck) {
+		# Create a temp node to compare to existing accounts.
+		
+		verificationNode = createNode(graph,
+																	"User",
+																	username = input$my_user,
+																	password = input$my_pass) # User's login attempt
+		
+		query =  "MATCH (n:User {username:{username}})
+		RETURN n"
+		
+		comparisonNode = getSingleNode(graph, query, username = input$my_user) # Retrieving actual account info
+		
+		# Compare the login attempt info to the actual info.
+		# If they match, the attempt is successful.
+		
+		if (toString(verificationNode) == toString(comparisonNode)) {
 			shinyjs::alert("Success!")
+			delete(verificationNode) # Redundant node
 		} else {
 			shinyjs::alert("Username and password are incorrect.")
+			delete(verificationNode) # Redundant node
 		}
 		
 	})

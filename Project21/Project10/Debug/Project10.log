@@ -1,0 +1,11 @@
+﻿  Source.c
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(4): warning C4068: unknown pragma
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(35): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(68): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(230): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(245): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(275): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(397): warning C4013: '_kbhit' undefined; assuming extern returning int
+c:\users\petro\documents\visual studio 2015\projects\project10\project10\source.c(627): warning C4098: 'open_replay': 'void' function returning a value
+  Project10.vcxproj -> C:\Users\Petro\documents\visual studio 2015\Projects\Project10\Debug\Project10.exe
+  Project10.vcxproj -> C:\Users\Petro\documents\visual studio 2015\Projects\Project10\Debug\Project10.pdb (Partial PDB)

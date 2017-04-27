@@ -10,9 +10,13 @@ int used_marker = 0;//checks if marker was used
 int game_ended = 0;//main endless loop breaks with this
 char chest_code_string[3];//holds the chest code
 int failprint = 0;//ensures one print
-
+int replay_mode = 0; //becomes 1 if the ser is watcing a replay, 0 when he returns to the main menu
+char replay_map[250][25][30]; //array to store locations of all elements in play
+int sc = 0; //counter variable for successful commands
 int algo1fail = 0;
 int algo2fail = 0;
+int first_export = 1;
+
 
 void input(int current_try) {
 
@@ -35,7 +39,51 @@ void input(int current_try) {
 
 		if (strcmp(tokens[0], "go") == 0) {
 			if (tokens[1] != NULL) {//checks if nothing followed the first word
-				if (strcmp(tokens[1], "up") == 0) {
+				if (replay_mode == 1)
+				{
+					if (strcmp(tokens[1], "forward") == 0)
+					{
+						if (tokens[2] != NULL)// checking for third word in string
+						{
+							if (atoi(tokens[2])) //will not enter loop if third word is not an interger
+							{
+								steps = steps + atoi(tokens[2]);
+							}
+							forward = 1;
+						}
+						else {
+							printf("Please try command again with an integer after 'forward'");
+							getchar();
+						}
+
+
+					}
+					else if (strcmp(tokens[1], "back") == 0)
+					{
+						if (tokens[2] != NULL) //checking for third word in string
+						{
+							if (atoi(tokens[2])) //will not enter loop if third word is not an integer
+							{
+								steps = steps - atoi(tokens[2]);
+							}
+							back = 1;
+
+						}
+						else {
+							printf("Please try command again with an integer after 'back'");
+							getchar();
+						}
+					}
+					else if (strcmp(tokens[1], "faster") == 0)
+					{
+						ms = ms - 300;
+					}
+					else if (strcmp(tokens[1], "slower") == 0)
+					{
+						ms = ms + 300;
+					}
+				}
+				else if ((strcmp(tokens[1], "up") == 0) || (strcmp(tokens[1], "north") == 0)) {
 					if (tokens[2] != NULL) {//checks if there is a third word
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -51,7 +99,7 @@ void input(int current_try) {
 									for (i = 0;i < atoi(tokens[2]);i++) {
 										move(current_try, 1);
 									}
-
+									_export(current_try);
 								}
 							}
 							else {
@@ -70,10 +118,10 @@ void input(int current_try) {
 						enemy_move(current_try);
 						enemy2_move(current_try);
 						move(current_try, 1);
-
+						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "down") == 0) {
+				else if ((strcmp(tokens[1], "down") == 0) || (strcmp(tokens[1], "south") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -89,7 +137,7 @@ void input(int current_try) {
 									for (i = 0;i < atoi(tokens[2]);i++) {
 										move(current_try, 3);
 									}
-
+									_export(current_try);
 								}
 							}
 							else {
@@ -108,10 +156,10 @@ void input(int current_try) {
 						enemy_move(current_try);
 						enemy2_move(current_try);
 						move(current_try, 3);
-
+						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "left") == 0) {
+				else if ((strcmp(tokens[1], "left") == 0) || (strcmp(tokens[1], "west") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -127,7 +175,7 @@ void input(int current_try) {
 									for (i = 0;i < atoi(tokens[2]);i++) {
 										move(current_try, 4);
 									}
-
+									_export(current_try);
 								}
 							}
 							else {
@@ -146,10 +194,10 @@ void input(int current_try) {
 						enemy_move(current_try);
 						enemy2_move(current_try);
 						move(current_try, 4);
-
+						_export(current_try);
 					}
 				}
-				else if (strcmp(tokens[1], "right") == 0) {
+				else if ((strcmp(tokens[1], "right") == 0) || (strcmp(tokens[1], "east") == 0)) {
 					if (tokens[2] != NULL) {
 						if (strlen(tokens[2]) == 1) {
 							if (atoi(tokens[2]))
@@ -165,7 +213,7 @@ void input(int current_try) {
 									for (i = 0;i < atoi(tokens[2]);i++) {
 										move(current_try, 2);
 									}
-
+									_export(current_try);
 								}
 							}
 							else {
@@ -184,7 +232,7 @@ void input(int current_try) {
 						enemy_move(current_try);
 						enemy2_move(current_try);
 						move(current_try, 2);
-
+						_export(current_try);
 					}
 				}
 				else if (tokens[1] == NULL) {
@@ -216,7 +264,7 @@ void input(int current_try) {
 						has_key = 1;//key grabbed
 						printf("You got the key!");
 						getchar();
-
+						_export(current_try);
 					}
 					else {
 						printf("There's no key to grab!");
@@ -277,6 +325,8 @@ void input(int current_try) {
 							map[current_try][chest_location[0]][chest_location[1]] = 'O';
 							printf("It's empty! :D");
 							opened_chest = 1;
+							_export(current_try);
+							getchar();
 						}
 						else {
 							printf("It has a lock and a keypad!");
@@ -341,22 +391,40 @@ void input(int current_try) {
 							mark_location[1] = player_location[1] - 1;
 							map[current_try][mark_location[0]][mark_location[1]] = 'M';
 							used_marker = 1;
+							_export(current_try);
 						}
 						else {
 							map[current_try][mark_location[0]][mark_location[1]] = ' ';
 							mark_location[0] = player_location[0] + 1;
 							mark_location[1] = player_location[1] - 1;
 							map[current_try][player_location[0] + 1][player_location[1] - 1] = 'M';
+							_export(current_try);
 						}
 					}
-				}	
+				}
 				else if (strcmp(tokens[1], chest_code_string) == 0) {
-				
+
 					printf("The chest unlocked!");
 					getchar();
 
 					locked_chest = 0;
 
+				}
+				else if (replay_mode == 1)
+				{
+					if (strcmp(tokens[1], "pause") == 0)
+					{
+						pause = 1;
+						input(0);
+					}
+					else if (strcmp(tokens[1], "resume") == 0)
+					{
+						pause = 0;
+					}
+					else if (strcmp(tokens[1], "stop") == 0)
+					{
+						stop = 1;
+					}
 				}
 				else {
 					printf("I did not understand that.");
@@ -383,11 +451,13 @@ void input(int current_try) {
 							printf("There's a number on the wall: %d", password_locations[2][0]);
 							getchar();
 
-						} else if (player_location[0] == password_locations[0][1] && player_location[1] == password_locations[1][1]) {
+						}
+						else if (player_location[0] == password_locations[0][1] && player_location[1] == password_locations[1][1]) {
 							printf("There's a number on the wall: %d", password_locations[2][1]);
 							getchar();
 
-						} else if (player_location[0] == password_locations[0][2] && player_location[1] == password_locations[1][2]) {
+						}
+						else if (player_location[0] == password_locations[0][2] && player_location[1] == password_locations[1][2]) {
 							printf("There's a number on the wall: %d", password_locations[2][2]);
 							getchar();
 
@@ -408,6 +478,22 @@ void input(int current_try) {
 		}
 		else if (strcmp(tokens[0], "exit") == 0) {
 			game_ended = 1;
+		}
+		else if (strcmp(tokens[0], "passkey") == 0) {
+			printf("The password is: %d %d %d", password_locations[2][0], password_locations[2][1], password_locations[2][2]);
+			getchar();
+		}
+		else if (strcmp(tokens[0], "locations") == 0) {
+			printf("The locations of the passwords are:\n %d %d \n %d %d \n %d %d ", password_locations[0][0], password_locations[1][0], password_locations[0][1], password_locations[1][1], password_locations[0][2], password_locations[1][2]);
+			getchar();
+		}
+		else if (strcmp(tokens[0], "picklock") == 0) {
+			has_key = 1;
+			if ((player_location[0]) == door_location[0] && (player_location[1] + 1) == door_location[1] && locked_door == 1 && has_key == 1) {
+				locked_door = 0;
+				printf("Keys are for casuals! Door has been unlocked!");
+				getchar();
+			}
 		}
 		else {
 			printf("I did not understand that");
@@ -467,14 +553,14 @@ void enemy_move(int current_try) {//direction is an int, 1 means up, 2 is right,
 	direction = (rand() % 4) + 1;//moves first enemy towards a random direction every time
 
 	if (direction == 1) {
-		if (map[current_try][enemy_location[0] - 2][enemy_location[1]+1] == '|') {
+		if (map[current_try][enemy_location[0] - 2][enemy_location[1] + 1] == '|') {
 			map[current_try][enemy_location[0]][enemy_location[1]] = ' ';
 			enemy_location[0] -= 5;
 			map[current_try][enemy_location[0]][enemy_location[1]] = 'E';
 		}
 	}
 	else if (direction == 3) {
-		if (map[current_try][enemy_location[0] + 2][enemy_location[1]+1] == '|') {
+		if (map[current_try][enemy_location[0] + 2][enemy_location[1] + 1] == '|') {
 			map[current_try][enemy_location[0]][enemy_location[1]] = ' ';
 			enemy_location[0] += 5;
 			map[current_try][enemy_location[0]][enemy_location[1]] = 'E';
@@ -538,28 +624,28 @@ void enemy2_move(int current_try) {//direction is an int, 1 means up, 2 is right
 
 
 	if (direction == 1) {
-		if (map[current_try][enemy2_location[0] - 1][enemy2_location[1]+1] == '|') {
+		if (map[current_try][enemy2_location[0] - 1][enemy2_location[1] + 1] == '|') {
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = ' ';
 			enemy2_location[0] -= 5;
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = 'E';
 		}
 	}
 	else if (direction == 3) {
-		if (map[current_try][enemy2_location[0] + 3][enemy2_location[1]+1] == '|') {
+		if (map[current_try][enemy2_location[0] + 3][enemy2_location[1] + 1] == '|') {
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = ' ';
 			enemy2_location[0] += 5;
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = 'E';
 		}
 	}
 	else if (direction == 2) {
-		if (map[current_try][enemy2_location[0]+1][enemy2_location[1] + 4] == '=') {
+		if (map[current_try][enemy2_location[0] + 1][enemy2_location[1] + 4] == '=') {
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = ' ';
 			enemy2_location[1] += 6;
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = 'E';
 		}
 	}
 	else if (direction == 4) {
-		if (map[current_try][enemy2_location[0]+1][enemy2_location[1] - 2] == '=') {
+		if (map[current_try][enemy2_location[0] + 1][enemy2_location[1] - 2] == '=') {
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = ' ';
 			enemy2_location[1] -= 6;
 			map[current_try][enemy2_location[0]][enemy2_location[1]] = 'E';
@@ -574,7 +660,7 @@ void enemy2_move(int current_try) {//direction is an int, 1 means up, 2 is right
 
 void test_move(int current_try, int player_location[], int direction, int *v, int(*visited)[25]) {//direction is an int, 1 means up, 2 is right, 3 is down, 4 is left
 
-	//attemps to traverse all rooms on the map, if a new room is entered v is incremented
+																								  //attemps to traverse all rooms on the map, if a new room is entered v is incremented
 
 	int i;
 	int was = 0;//becomes 1 if room has been entered before
@@ -690,14 +776,14 @@ int enemy2_algo2(int current_try) {//enemy 2 moving algorithm that focuses on ch
 
 }
 
-int enemy2_algo3(int current_try) { 
-	
+int enemy2_algo3(int current_try) {
+
 	//enemy 2 moving algorithm, essentially this will always agree with one of the other two algorithms,
 	//however, the one that it agrees with depends on how many times it took the maze to be randomized,
 	//essentially giving the movement style of enemy 2 some randomization of its own.
 
 	int mod;
-	
+
 
 	if ((algo1fail < 2) && (algo2fail < 2)) {//fails one algorithm if it disagrees twice
 		mod = current_try % 2;
@@ -734,4 +820,16 @@ int enemy2_algo3(int current_try) {
 	}
 
 
+}
+
+void _export(int ct)
+{
+	for (int i = 0; i <= 25; i++)
+	{
+		for (int j = 0; j <= 30; j++)
+		{
+			replay_map[sc][i][j] = map[ct][i][j];
+		}
+	}
+	sc++;
 }

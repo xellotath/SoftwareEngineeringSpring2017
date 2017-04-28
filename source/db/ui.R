@@ -3,6 +3,8 @@ library(shiny)
 library(shinyjs)
 library(shinythemes)
 
+# Accessed at https://meeseeks.shinyapps.io/database/
+
 # Connect to the Neo4j DB.
 graph = startGraph("http://107.170.75.7:7474/db/data/",
                    username = "neo4j",

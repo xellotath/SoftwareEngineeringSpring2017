@@ -2,12 +2,15 @@ library(RNeo4j)
 library(shiny)
 library(shinyjs)
 
+# Accessed at https://meeseeks.shinyapps.io/database/
+
 graph = startGraph("http://107.170.75.7:7474/db/data/",
 									 username = "neo4j",
 									 password = "meeseek")
 useShinyjs()
 
 function(input, output, session) {
+	
 	# REGISTER
 	
 	observe({
